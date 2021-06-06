@@ -65,14 +65,9 @@ class ButtonRemapper(Wrapper):
             self._action_meanings[action] = ' '.join(button_list)
 
         self.dict_combobuttonpresses = {'left': ['left'], 'right': ['right'], 'up': ['up'], 'down': ['down'],
-                                        'menucol0row0': ['A', 'A', 'A'],
-                                        'menucol0row1': ['A', 'down', 'A', 'A'],
-                                        'menucol0row2': ['A', 'down', 'down', 'A', 'A'],
-                                        'menucol0row3': ['A', 'down', 'down', 'down', 'A', 'A'],
-                                        'menucol1row0': ['A', 'right', 'A', 'A'],
-                                        'menucol1row1': ['A', 'right', 'down', 'A', 'A'],
-                                        'menucol1row2': ['A', 'right', 'down', 'down', 'A', 'A'],
-                                        'menucol1row3': ['A', 'right', 'down', 'down', 'down', 'A', 'A'],
+                                        'take': ['A', 'right', 'down', 'down', 'down', 'A', 'A'],
+                                        'door': ['A', 'right', 'down', 'down', 'A', 'A'],
+                                        'stairs': ['A', 'down', 'down', 'A', 'A'],
                                         'A': ['A'], 'B': ['B']
                                         }
 
@@ -179,7 +174,6 @@ class ButtonRemapper(Wrapper):
             'A': 250,
             'B': 25
         }
-
 
         for press in range(presses):
             self.frame_advance(self._button_map[button])
