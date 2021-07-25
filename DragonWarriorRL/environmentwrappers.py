@@ -113,7 +113,9 @@ class ButtonRemapper(Wrapper):
             # Recall again we only do extra presses if actionname in [['left'], ['right'], ['up'],['down']]
             if doextrapress:
                 # TODO: See if we can come up with more effective logic. Also implement frame buffering.
-                self.pressbutton(actionname)
+                self.pressbutton(actionname, trailingnoons=1)
+                self.env.frame_advance(0)
+
 
             # this will update multiple times, but we will only return the last value.
             next_state, reward, done, info = self.env.step(

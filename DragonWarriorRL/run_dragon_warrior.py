@@ -24,7 +24,6 @@ print_stats_per_action = True
 pause_after_action = False
 # pause_after_action = True
 
-use_dumb_dw_env = False
 # todo adjust cosine method, or change from boolean to variable controlling period of cosine
 eps_method = 'cosine'
 # eps_method = 'exp_decay'

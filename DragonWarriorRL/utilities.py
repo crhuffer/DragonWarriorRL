@@ -16,11 +16,11 @@ class Actor:
     controlled scripts, which is intended to make it easier to maintain both systems.
     '''
 
-    def __init__(self, env, state, game_state, total_reward, agent, print_stats_per_action,
+    def __init__(self, env, state, total_reward, agent, print_stats_per_action,
                  dragon_warrior_comboactions, pause_after_action, _episode_frame=0):
         self.env = env
         self.state = state
-        self.game_state = game_state
+        # self.game_state = game_state
         self.total_reward = total_reward
         self.agent = agent
         self.print_stats_per_action = print_stats_per_action
@@ -41,13 +41,13 @@ class Actor:
     def episode_frame(self, value):
         self._episode_frame = value
 
-    @property
-    def game_state(self):
-        return self._game_state
-
-    @game_state.setter
-    def game_state(self, value):
-        self._game_state = value
+    # @property
+    # def game_state(self):
+    #     return self._game_state
+    #
+    # @game_state.setter
+    # def game_state(self, value):
+    #     self._game_state = value
 
     @property
     def state(self):
@@ -73,25 +73,28 @@ class Actor:
 
         # return self.results
 
-    def dopostprocessingfrompreviousstep(self, printtiming=True):
+    def dopostprocessingfrompreviousstep(self, printtiming=True, dolearning=True):
         '''Gets the game state, adds the last iteration to the Q-table, trains the neural network, updates the
         reward, and updates the game state and state.'''
 
         action, next_state, reward, done, info = self.results
         now = datetime.datetime.now()
-        next_game_state = current_game_state(self.env.state_info)
+        # next_game_state = current_game_state(self.env.state_info)
         if printtiming:
             print(f'duration to step environment forward: {datetime.datetime.now() - now}')
         # Remember transition
         now = datetime.datetime.now()
-        self.agent.add(experience=(self.state, next_state, self.game_state, next_game_state, action, reward, done))
+        self.agent.add(experience=(self.state, next_state, action, reward, done))
+        # self.agent.add(experience=(self.state, next_state, self.game_state, next_game_state, action, reward, done))
         if printtiming:
             print(f'duration to add transition to the agent: {datetime.datetime.now() - now}')
-        # Update agent
-        now = datetime.datetime.now()
-        self.agent.learn()
-        if printtiming:
-            print(f'duration to learn: {datetime.datetime.now() - now}')
+
+        if dolearning:
+            # Update agent
+            now = datetime.datetime.now()
+            self.agent.learn()
+            if printtiming:
+                print(f'duration to learn: {datetime.datetime.now() - now}')
 
         # Total reward
         self.total_reward += reward
@@ -102,7 +105,7 @@ class Actor:
         if self.pause_after_action == True:
             input('press any key to advance')
 
-        self.game_state = next_game_state
+        # self.game_state = next_game_state
         self.state = next_state
 
 # %%
