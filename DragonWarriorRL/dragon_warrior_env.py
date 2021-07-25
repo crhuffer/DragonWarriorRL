@@ -1,10 +1,12 @@
 import os
-from nes_py import NESEnv
+
 import numpy as np
+from nes_py import NESEnv
 
 package_directory = os.path.dirname(os.path.abspath(__file__))
 game_name = 'dragon_warrior.nes'
 game_path = os.path.join(package_directory, game_name)
+
 
 class DragonWarriorEnv(NESEnv):
     '''An OpenAI Gym interface to the NES game Final Fantasy'''
@@ -70,11 +72,11 @@ class DragonWarriorEnv(NESEnv):
     # todo set current values as init methods, ensure reseting can't be used to game stat growth etc
     def _current_exp(self):
         '''Return the current experience value'''
-        return self.ram[0x00BA] + 256*self.ram[0x00BB]
+        return self.ram[0x00BA] + 256 * self.ram[0x00BB]
 
     def _current_gold(self):
         '''Return the current gold value'''
-        return self.ram[0x00BC] + 256*self.ram[0x00BD]
+        return self.ram[0x00BC] + 256 * self.ram[0x00BD]
 
     def _current_magic_keys(self):
         '''Return the current number of magic keys'''
@@ -139,19 +141,19 @@ class DragonWarriorEnv(NESEnv):
     def state_info(self):
         '''Return a dictionary with key value pairs for information for agent'''
         return dict(
-            map_id = self._map_id(),
-            enemy_terrain_pointer = self._current_enemy_terrain_pointer(),
-            is_enemy = 1 if self._is_enemy() else 0,
-            map_x_pos = self._current_map_x_pos(),
-            map_y_pos = self._current_map_y_pos(),
-            current_hp = 0 if self._start_menu else self._current_hp(),
-            current_atk = self._current_atk_power(),
-            current_def = self._current_def_power(),
-            current_magic_keys = self._current_magic_keys(),
-            current_gold = self._current_gold(),
-            current_exp = self._current_exp(),
-            current_magic_herbs = self._current_magic_herbs(),
-            current_torches = self._current_torches(),
+            map_id=self._map_id(),
+            enemy_terrain_pointer=self._current_enemy_terrain_pointer(),
+            is_enemy=1 if self._is_enemy() else 0,
+            map_x_pos=self._current_map_x_pos(),
+            map_y_pos=self._current_map_y_pos(),
+            current_hp=0 if self._start_menu else self._current_hp(),
+            current_atk=self._current_atk_power(),
+            current_def=self._current_def_power(),
+            current_magic_keys=self._current_magic_keys(),
+            current_gold=self._current_gold(),
+            current_exp=self._current_exp(),
+            current_magic_herbs=self._current_magic_herbs(),
+            current_torches=self._current_torches(),
         )
 
     def _will_reset(self):
@@ -317,19 +319,18 @@ class DragonWarriorEnv(NESEnv):
         else:
             return False
 
-
     # not used,
     def _throne_room_key_reward(self):
         if self._magic_keys == 0:
             key_chest_penalty = np.sqrt((self._current_map_y_pos() - self._throne_key_chest_y_pos) ** 2 +
-                       (self._current_map_x_pos() - self._throne_key_chest_x_pos) ** 2)
+                                        (self._current_map_x_pos() - self._throne_key_chest_x_pos) ** 2)
             if key_chest_penalty > 0:
                 _reward = -0.001
             else:
                 _reward = 1
         else:
             door_open_penalty = np.sqrt((self._current_map_y_pos() - self._throne_room_door_y_pos) ** 2 +
-                       (self._current_map_x_pos() - self._throne_room_door_x_pos) ** 2)
+                                        (self._current_map_x_pos() - self._throne_room_door_x_pos) ** 2)
             if door_open_penalty > 0:
                 _reward = -0.001
             else:
@@ -363,10 +364,10 @@ class DragonWarriorEnv(NESEnv):
     def _get_info(self):
         '''Return the info after a step occurs'''
         return dict(
-            exit_throne_room = self._leave_throne_room,
-            throne_room_gold = self._get_throne_room_gold,
-            throne_room_torch = self._get_throne_room_torch,
-            throne_room_key = self._get_throne_room_key
+            exit_throne_room=self._leave_throne_room,
+            throne_room_gold=self._get_throne_room_gold,
+            throne_room_torch=self._get_throne_room_torch,
+            throne_room_key=self._get_throne_room_key
         )
 
 

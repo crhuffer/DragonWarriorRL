@@ -116,7 +116,6 @@ class ButtonRemapper(Wrapper):
                 self.pressbutton(actionname, trailingnoons=1)
                 self.env.frame_advance(0)
 
-
             # this will update multiple times, but we will only return the last value.
             next_state, reward, done, info = self.env.step(
                 self._action_map[self.dict_takesactionnamereturnsbuttonindex[actionname]])
@@ -181,7 +180,6 @@ class ButtonRemapper(Wrapper):
             'A': 250,
             'B': 25
         }
-
 
         for press in range(presses):
             self.frame_advance(self._button_map[button])

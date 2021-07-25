@@ -1,7 +1,7 @@
 import datetime
-import utilities
+
 from inputs import get_gamepad
-from winsound import MessageBeep
+
 
 # TODO: try to come up with a better name for this.
 
@@ -63,6 +63,7 @@ class HumanPresser:
         self.actor.dopostprocessingfrompreviousstep(dolearning=False)
         self.actor.env.render()
 
+
 # %%
 
 list_codestoignore = ['ABS_X', 'ABS_Y', 'ABS_RX', 'ABS_RY', 'SYN_REPORT', 'ABS_RZ', 'ABS_Z']
@@ -71,7 +72,7 @@ s = HumanPresser(actor=actor)
 # %%
 
 list_events = []
-duration = datetime.timedelta(seconds=60*10)
+duration = datetime.timedelta(seconds=60 * 10)
 now = datetime.datetime.now()
 while datetime.datetime.now() < now + duration:
     events = get_gamepad()
@@ -133,7 +134,6 @@ agent.save_model()
 # %%
 
 
-
 # # %%
 #
 # list_events = []
@@ -169,11 +169,6 @@ agent.save_model()
 # %%
 
 if __name__ == '__main__':
-
-
-
-
-
     # The actor should already be set up using at least parts of run_dragon_warrior.py
     s = HumanPresser(actor=actor)
 

@@ -6,6 +6,7 @@ import numpy as np
 def current_game_state(info_state):
     return np.array(list(info_state.values()))
 
+
 # TODO: Rename to Executor and test.
 # TODO: Prove to myself that setters are really worth it and be prepared to discuss.
 
@@ -109,4 +110,3 @@ class Actor:
         self.state = next_state
 
 # %%
-
